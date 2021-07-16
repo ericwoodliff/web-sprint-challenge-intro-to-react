@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import axios from 'axios';
+import Character from './components/Character.js';
 
 
 
@@ -14,9 +15,11 @@ const App = () => {
     const getCharacters = async () => {
       const result = await axios.get(`https://swapi.dev/api/people`)
       console.log(result.data);
+      setCharacters(result.data);
+      setIsRendering(false);
     }
 
-    getCharacters();
+    getCharacters(); 
 
   }, [])
 
@@ -24,6 +27,7 @@ const App = () => {
   return (
     <div className="App">
       <h1 className="Header">Characters</h1>
+      <Character isRendering={isRendering} characters={characters} />
     </div>
   );
 }
